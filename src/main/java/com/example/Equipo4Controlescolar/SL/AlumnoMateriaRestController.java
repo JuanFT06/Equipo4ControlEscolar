@@ -4,6 +4,14 @@
  */
 package com.example.Equipo4Controlescolar.SL;
 
+import com.example.Equipo4Controlescolar.BL.AlumnoMateriaService;
+import com.example.Equipo4Controlescolar.BL.AlumnoService;
+import com.example.Equipo4Controlescolar.DL.MateriasNoAgregadas;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,5 +22,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/alumno-materia")
 public class AlumnoMateriaRestController {
+    private final AlumnoMateriaService service;
+
+    @Autowired
+    public AlumnoMateriaRestController(AlumnoMateriaService service) {
+        this.service = service;
+    }
+    
+    @GetMapping("/no-agregadas/{id}")
+    public ResponseEntity<List<MateriasNoAgregadas>> getMateriasNoAgregadas(@PathVariable("id")int id){
+        return ResponseEntity.ok(this.service.getMateriasNoAgregadas(id));
+    }
     
 }
