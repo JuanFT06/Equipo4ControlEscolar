@@ -1,15 +1,55 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layaout"
+      layout:decorate="~{Layout}"> 
+
+
+
+    <body layout:fragment="body">
+        <div class="d-flex justify-content-center align-items-center mt-4">
+            <h1>Lista de Alumnos</h1>
+        </div>
+        <div class="d-flex justify-content-center align-items-center mt-4"> 
+            <a class="btn btn-outline-success">Agregar</a>
+        </div>
+
+        <div class="container mt-2">
+            <div class="table-responsive">
+                <table  class="table table-hover table-sm table-borderless " >
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th scope="col">Eliminar</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido Paterno</th>
+                            <th scope="col">Apellido Materno</th>
+                            <th scope="col">Editar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr class="text-center">
+                            <td>
+                                <a class="btn btn-outline-danger ">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                            </td>
+                            <td>Gabito</td>
+                            <td>Ballesteros</td>
+                            <td>Rodriguez</td>
+                            <td>
+                                <a class="btn btn-outline-warning" >
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
     </body>
 </html>
