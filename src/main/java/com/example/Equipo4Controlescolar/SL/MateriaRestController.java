@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @author digis
  */
 @RestController
-@RequestMapping("/api/clase")
+@RequestMapping("/api/materia")
 public class MateriaRestController {
+    
+    
     
 }
