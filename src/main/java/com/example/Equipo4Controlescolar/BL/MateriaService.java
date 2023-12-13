@@ -51,10 +51,10 @@ public class MateriaService {
 
     @Transactional
     public void actualizarMateria(int id, String nuevoNombre, double nuevoPrecio) {
-        Optional<Materia> optionalMateria = repository.findById(id);
+        Optional<Materia> optional = repository.findById(id);
 
-        if (optionalMateria.isPresent()) {
-            Materia materia = optionalMateria.get();
+        if (optional.isPresent()) {
+            Materia materia = optional.get();
             materia.setNombre(nuevoNombre);
             materia.setPrecio(nuevoPrecio);
             repository.save(materia);

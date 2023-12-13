@@ -4,6 +4,12 @@
  */
 package com.example.Equipo4Controlescolar.SL;
 
+import com.example.Equipo4Controlescolar.BL.MateriaService;
+import com.example.Equipo4Controlescolar.DL.Materia;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/materia")
 public class MateriaRestController {
     
+    @Autowired
+    private MateriaService materiaService;
     
+    @GetMapping("/listado")
+    public ResponseEntity<List<Materia>> obtenerMateria(){
+        List<Materia> materias = materiaService.obtenerTodasLasMaterias();
+        return ResponseEntity.ok(materias);
+    }
     
 }

@@ -4,8 +4,6 @@
  */
 package com.example.Equipo4Controlescolar.DL;
 
-import java.util.List;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -13,8 +11,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author digis
  */
 public interface MateriaRepository extends CrudRepository<Materia, Integer> {
-
-    @Query(value = "SELECT m FROM Materia m")
-    List<Materia> findAllMaterias();
-
+    
 }
