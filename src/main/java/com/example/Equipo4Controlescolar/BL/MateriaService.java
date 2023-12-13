@@ -62,5 +62,4 @@ public class MateriaService {
             throw new IllegalArgumentException("Materia no encontrada con ID: " + id);
         }
     }
-
 }

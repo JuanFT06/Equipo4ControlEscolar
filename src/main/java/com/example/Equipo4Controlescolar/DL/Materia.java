@@ -27,8 +27,8 @@ public class Materia {
     @Column(name = "nombre")
     private String nombre;
     
-    @Column (name = "precio")
-    private double precio;
+    @Column (name = "costo")
+    private double costo;
 
     public int getIdmateria() {
         return idmateria;
@@ -39,7 +39,7 @@ public class Materia {
     }
 
     public double getPrecio() {
-        return precio;
+        return costo;
     }
 
     public void setIdmateria(int idmateria) {
@@ -50,21 +50,17 @@ public class Materia {
         this.nombre = nombre;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPrecio(double costo) {
+        this.costo = costo;
     }
 
     public Materia() {
     }
 
-    public Materia(int idmateria, String nombre, double precio) {
+    public Materia(int idmateria, String nombre, double costo) {
         this.idmateria = idmateria;
         this.nombre = nombre;
-        this.precio = precio;
+        this.costo = costo;
     }
-    
-    
-    
-    
     
 }
