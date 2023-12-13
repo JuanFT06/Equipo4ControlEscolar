@@ -4,10 +4,16 @@
  */
 package com.example.Equipo4Controlescolar.DL;
 
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  *
  * @author digis
  */
-public interface AlumnoRepository {
+@Repository
+public interface AlumnoRepository extends JpaRepository<Alumno, Integer> {
+
     
 }
