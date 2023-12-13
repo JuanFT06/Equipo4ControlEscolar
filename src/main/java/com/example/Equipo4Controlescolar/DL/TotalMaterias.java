@@ -8,8 +8,6 @@ package com.example.Equipo4Controlescolar.DL;
  *
  * @author digis
  */
-public interface MateriasNoAgregadas {
-    int getId();
-    String getNombre();
-    int getCosto();
+public interface TotalMaterias {
+    int  getTotal();
 }

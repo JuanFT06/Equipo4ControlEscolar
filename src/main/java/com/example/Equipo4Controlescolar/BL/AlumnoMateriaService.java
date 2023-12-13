@@ -4,9 +4,12 @@
  */
 package com.example.Equipo4Controlescolar.BL;
 
+import com.example.Equipo4Controlescolar.DL.AlumnoMateria;
 import com.example.Equipo4Controlescolar.DL.AlumnoMateriaRepository;
 import com.example.Equipo4Controlescolar.DL.MateriasNoAgregadas;
+import com.example.Equipo4Controlescolar.DL.TotalMaterias;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +29,21 @@ public class AlumnoMateriaService {
     
     public List<MateriasNoAgregadas> getMateriasNoAgregadas(int id){
         return this.repository.getMateriasNoAgregadas(id);
+    }
+    
+    public Map<String,Object> materiasNoAgregadasSP(int id){
+        return this.repository.materiasNoAgregadasSP(id);
+    }
+    
+    public List<MateriasNoAgregadas> getMateriasAgregadas(int id){
+        return this.repository.getMateriasAgregadas(id);
+    }
+    
+    public AlumnoMateria add(AlumnoMateria alumnoMateria){
+        return this.repository.save(alumnoMateria);
+    }
+    
+    public TotalMaterias getTotal(int id){
+        return this.repository.getTotal(id);
     }
 }
