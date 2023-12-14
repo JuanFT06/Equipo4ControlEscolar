@@ -4,10 +4,13 @@
  */
 package com.example.Equipo4Controlescolar.DL;
 
+import org.springframework.data.repository.CrudRepository;
+
 /**
  *
  * @author digis
  */
-public interface MateriaRepository {
+public interface MateriaRepository extends CrudRepository<Materia, Integer> {
+    
     
 }
