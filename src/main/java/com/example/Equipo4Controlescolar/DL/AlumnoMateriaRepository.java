@@ -43,7 +43,12 @@ public interface AlumnoMateriaRepository extends JpaRepository<AlumnoMateria, In
             + "where idmateria in( select idmateria from  alumnomateria where idalumno=:alumno)", nativeQuery = true)
     TotalMaterias getTotal(@Param("alumno") int id);
     
-    @Procedure(name = "AlumnoMateria.getmateriasnoagregadas")
-    Map<String,Object> materiasNoAgregadasSP(@Param("p_id")int id);
+   @Procedure(value = "getmateriasnoagregadas",outputParameterName = "p_cursor",refCursor =true )
+   List<MateriasNoAgregadas> materiasNoAgregadasSP(@Param("p_id")int id);
+   
+   @Procedure(value = "getmateriasagregadas",outputParameterName = "p_cursor",refCursor =true )
+   List<MateriasNoAgregadas> materiasAgregadasSP(@Param("p_id")int id);
 
+   @Procedure(value = "addalumnomateria",outputParameterName ="p_exit" )
+   int addSP(@Param("p_alumno")int alumno,@Param("p_materia")int materia);
 }

@@ -11,5 +11,5 @@ package com.example.Equipo4Controlescolar.DL;
 public interface MateriasNoAgregadas {
     int getId();
     String getNombre();
-    int getCosto();
+    double getCosto();
 }

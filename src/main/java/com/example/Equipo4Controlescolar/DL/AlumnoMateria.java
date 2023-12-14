@@ -29,10 +29,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "alumnomateria")
-@NamedStoredProcedureQuery(name = "AlumnoMateria.getmateriasnoagregadas",procedureName = "getmateriasnoagregadas",parameters = {
-    @StoredProcedureParameter(name = "p_id",mode=ParameterMode.IN,type = Integer.class),
-    @StoredProcedureParameter(name = "p_cursor",mode=ParameterMode.REF_CURSOR,type =Void.class)
-})
 public class AlumnoMateria {
 
     @Id

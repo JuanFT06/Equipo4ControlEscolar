@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -30,9 +31,13 @@ public class AlumnoMateriaService {
     public List<MateriasNoAgregadas> getMateriasNoAgregadas(int id){
         return this.repository.getMateriasNoAgregadas(id);
     }
-    
-    public Map<String,Object> materiasNoAgregadasSP(int id){
+    @Transactional(readOnly = true)
+    public List<MateriasNoAgregadas> materiasNoAgregadasSP(int id){
         return this.repository.materiasNoAgregadasSP(id);
+    }
+    @Transactional(readOnly = true)
+    public List<MateriasNoAgregadas> materiasAgregadasSP(int id){
+        return this.repository.materiasAgregadasSP(id);
     }
     
     public List<MateriasNoAgregadas> getMateriasAgregadas(int id){
@@ -41,6 +46,12 @@ public class AlumnoMateriaService {
     
     public AlumnoMateria add(AlumnoMateria alumnoMateria){
         return this.repository.save(alumnoMateria);
+    }
+    
+    @Transactional
+    public boolean addSp(AlumnoMateria alumnoMateria){
+        int r=this.repository.addSP(alumnoMateria.getAlumno().getIdalumno(), alumnoMateria.getMateria().getIdmateria());
+        return r>0;
     }
     
     public TotalMaterias getTotal(int id){

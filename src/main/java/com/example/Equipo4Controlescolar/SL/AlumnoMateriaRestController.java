@@ -39,14 +39,17 @@ public class AlumnoMateriaRestController {
     public ResponseEntity<List<MateriasNoAgregadas>> getMateriasAgregadas(@PathVariable("id")int id){
         return ResponseEntity.ok(this.service.getMateriasAgregadas(id));
     }
+     @GetMapping("/agregadas-sp/{id}")
+    public ResponseEntity<List<MateriasNoAgregadas>> getMateriasAgregadasSP(@PathVariable("id")int id){
+        return ResponseEntity.ok(this.service.materiasAgregadasSP(id));
+    }
     
     @GetMapping("/no-agregadas/{id}")
     public ResponseEntity<List<MateriasNoAgregadas>> getMateriasNoAgregadas(@PathVariable("id")int id){
         return ResponseEntity.ok(this.service.getMateriasNoAgregadas(id));
     }
     @GetMapping("/no-agregadas-sp/{id}")
-    @Transactional(readOnly = true)
-    public ResponseEntity<Map<String,Object>> getMateriasNoAgregadasSP(@PathVariable("id")int id){
+    public ResponseEntity<List<MateriasNoAgregadas>> getMateriasNoAgregadasSP(@PathVariable("id")int id){
         return ResponseEntity.ok(this.service.materiasNoAgregadasSP(id));
     }
     
@@ -58,6 +61,15 @@ public class AlumnoMateriaRestController {
     @PostMapping("")
     public ResponseEntity<AlumnoMateria> add(@RequestBody AlumnoMateria alumnoMateria){
         return ResponseEntity.status(201).body(this.service.add(alumnoMateria));
+    }
+    
+    @PostMapping("/sp")
+    public ResponseEntity<String> addSP(@RequestBody AlumnoMateria alumnoMateria){
+        if (this.service.addSp(alumnoMateria)) {
+            return ResponseEntity.status(201).body("Agregado");
+        }
+        
+        return ResponseEntity.badRequest().build();
     }
     
 }

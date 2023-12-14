@@ -9,5 +9,5 @@ package com.example.Equipo4Controlescolar.DL;
  * @author digis
  */
 public interface TotalMaterias {
-    int  getTotal();
+    double  getTotal();
 }
