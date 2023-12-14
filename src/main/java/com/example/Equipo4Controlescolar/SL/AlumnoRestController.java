@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,8 +47,14 @@ public class AlumnoRestController {
         return alumnoService.saveAlumno(alumno);
     }
 
-     @PutMapping("/Update/{alumnoid}")
-    public Alumno updateAlumno(@RequestBody Alumno alumno, @PathVariable int alumnoId) {
-        return alumnoService.updateAlumno(alumno, alumnoId);
+    @PostMapping("/Update")
+    public Alumno updateDepartment(@RequestBody Alumno alumno) {
+        return alumnoService.saveAlumno(alumno);
     }
+
+    @DeleteMapping("/Delete/{IdAlumno}")
+    public void deleteAlumno(@PathVariable int IdAlumno) {
+        alumnoService.deleteAlumnoById(IdAlumno);
+    }
+
 }
