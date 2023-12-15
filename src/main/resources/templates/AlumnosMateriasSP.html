@@ -1,0 +1,281 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layaout"
+      layout:decorate="~{Layout}"> 
+
+
+
+    <body layout:fragment="body">
+        <div class="d-flex justify-content-center align-items-center mt-4">
+            <h1>Lista de Alumnos-Materias</h1>
+        </div>
+
+
+        <div class="container mt-5">
+            <div class="table-responsive">
+                <table  class="table table-hover table-sm table-borderless " >
+                    <thead class="table-light text-center">
+                        <tr>
+
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido Paterno</th>
+                            <th scope="col">Apellido Materno</th>
+                            <th scope="col">Ver</th>
+                            <th scope="col">Agregar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="listaAlumnos">
+                        <tr class="text-center">
+
+                            <td>Gabito</td>
+                            <td>Ballesteros</td>
+                            <td>Rodriguez</td>
+                            <td>
+                                <button class="btn btn-outline-info" onclick="openModalMaterias()">Ver</button>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-outline-success" onclick="openModalAdd()">Agregar</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div id="modalMaterias" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModal">Materias</h5>
+                        <button type="button" class="btn-close" onclick="closeModalMaterias()" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <div class="offset-1 col-10">
+
+                            <table  class="table table-striped mr-8">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Costo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listaMaterias">
+
+                                </tbody>
+                            </table>
+
+                            <div class="row">
+                                <span class="offset-4 col-2" id="totalMaterias"></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeModalMaterias()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modalMateriasAdd" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModal">Materias</h5>
+                        <button type="button" class="btn-close" onclick="closeModalMateriasAdd()" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <div class="offset-1 col-10">
+
+                            <table  class="table table-striped mr-8">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Costo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listaMateriasNoAgregadas">
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeModalMateriasAdd()">Close</button>
+                        <button type="button" class="btn btn-primary" id="botonModal"
+                                onclick="addMaterias()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+
+</html>
+
+
+<script>
+
+    var idAlumno = 0;
+    $(document).ready(function () {
+        getAlumnos();
+    });
+    function openModalMaterias(id) {
+        $("#modalMaterias").show();
+        idAlumno = id;
+        getMaterias();
+        getTotal();
+    }
+
+    function openModalMateriasAdd(id) {
+        $("#modalMateriasAdd").show();
+        idAlumno = id;
+        getMateriasNoAgregadas();
+    }
+
+    function closeModalMaterias() {
+        $("#modalMaterias").hide();
+    }
+    function closeModalMateriasAdd() {
+        $("#modalMateriasAdd").hide();
+    }
+    function getMaterias() {
+        $.ajax({
+            url: "http://localhost:8080/api/alumno-materia/agregadas-sp/" + idAlumno,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                var resultsConatiner = $("#listaMaterias");
+                resultsConatiner.empty();
+                var materias = data;
+                $.each(materias, function (index, materia) {
+                    var card = `
+                            <tr>
+                                    <td hidden='true'>${materia.idmateria}</td>
+                                    <td class="card-text">${materia.nombre}</td>
+                                    <td class="card-title">${materia.costo}</td>
+                            </tr>
+                        `;
+                    resultsConatiner.append(card);
+                });
+
+            }
+        })
+    }
+    function getMateriasNoAgregadas() {
+        $.ajax({
+            url: "http://localhost:8080/api/alumno-materia/no-agregadas-sp/" + idAlumno,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                var resultsConatiner = $("#listaMateriasNoAgregadas");
+                resultsConatiner.empty();
+                var materias = data;
+                $.each(materias, function (index, materia) {
+                    var card = `
+                            <tr>
+                                    <td hidden='true'>${materia.id}</td>
+                                    <td class="card-text">${materia.nombre}</td>
+                                    <td class="card-title">${materia.costo}</td>
+                                    <td><input type="checkbox" class="checkbox"></td>
+                            </tr>
+                        `;
+                    resultsConatiner.append(card);
+                });
+
+            }
+        })
+    }
+
+    function getAlumnos() {
+        $.ajax({
+            url: "http://localhost:8080/api/alumno/GetAll",
+            type: 'GET',
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                var resultsConatiner = $("#listaAlumnos");
+                resultsConatiner.empty();
+                var alumnos = data;
+                $.each(alumnos, function (index, alumno) {
+                    var card = `
+                            <tr class="text-center">
+                                    <td hidden='true'>${alumno.idalumno}</td>
+                                    <td scope="col">${alumno.nombre}</td>
+                                    <td scope="col">${alumno.apellidopaterno}</td>
+                                    <td scope="col">${alumno.apellidomaterno}</td>
+                                    <td>
+                                        <button class="btn btn-outline-info" onclick="openModalMaterias(${alumno.idalumno})">Ver</button>
+                                    </td>
+
+                                    <td>
+                                        <button class="btn btn-outline-success" onclick="openModalMateriasAdd(${alumno.idalumno})">Agregar</button>
+                                    </td>
+                            </tr>
+                        `;
+                    resultsConatiner.append(card);
+                });
+
+            }
+        })
+    }
+
+    function getTotal() {
+        $.ajax({
+            url: "http://localhost:8080/api/alumno-materia/total/" + idAlumno,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                $("#totalMaterias").text("Total $" + data.total)
+            }
+
+        })
+    }
+
+    function addMaterias() {
+        $('#listaMateriasNoAgregadas tr').each(function () {
+            var checkbox = $(this).find('.checkbox');
+            if (checkbox.prop('checked')) {
+                var idMateria = $(this).find('td:eq(0)').text();
+                
+                var alumnomateria =
+                        {
+                            "alumno": {
+                                "idalumno": idAlumno
+                            },
+                            "materia": {
+                                "idmateria": idMateria
+                            }
+                        }
+
+                $.ajax({
+                    url: "http://localhost:8080/api/alumno-materia/sp",
+                    type: 'POST',
+                    data: JSON.stringify(alumnomateria),
+                    Accept: "application/json",
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (data) {
+                        alert("Materias agregadas");
+                        closeModalMateriasAdd()
+                        getAll();
+                    },
+                    error: function () {
+                        // Muestra el mensaje de error en caso de error en la petición
+                        alert("Error al guardar");
+                        closeModalMateriasAdd();
+                    }
+                });
+            }
+        });
+    }
+</script>

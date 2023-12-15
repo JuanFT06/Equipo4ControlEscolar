@@ -20,4 +20,9 @@ public class AlumnoMateriaController {
     public String index(){
         return "AlumnoMaterias";
     }
+    @GetMapping("/sp")
+    public String indexSP(){
+        return "AlumnosMateriasSP";
+    }
+    
 }
