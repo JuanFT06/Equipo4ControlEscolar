@@ -32,23 +32,8 @@ public class AlumnoService {
     public Alumno saveAlumno(Alumno alumno) {
         return alumnoRepository.save(alumno);
     }
-
-    public Alumno updateAlumno(Alumno alumno, int alumnoId) {
-        Optional<Alumno> optionalAlumno = alumnoRepository.findById(alumnoId);
-
-        if (optionalAlumno.isPresent()) {
-            Alumno alumnoDB = optionalAlumno.get();
-            alumnoDB.setNombre(alumno.getNombre());
-            alumnoDB.setApellidopaterno(alumno.getApellidopaterno());
-            alumnoDB.setApellidomaterno(alumno.getApellidomaterno());
-            return alumnoRepository.save(alumnoDB);
-        } else {
-
-            return null;
-        }
-
-}
-    public void deleteDepartmentById(int alumnoId) {
+   
+    public void deleteAlumnoById(int alumnoId) {
         alumnoRepository.deleteById(alumnoId);
     }
 }

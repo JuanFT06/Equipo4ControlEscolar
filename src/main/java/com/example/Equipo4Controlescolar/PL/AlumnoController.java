@@ -18,7 +18,6 @@ public class AlumnoController {
 
     @GetMapping("/ListaAlumnos")
     public String ListadoVuelos() {
-        
         return "Alumnos";
     }
 
