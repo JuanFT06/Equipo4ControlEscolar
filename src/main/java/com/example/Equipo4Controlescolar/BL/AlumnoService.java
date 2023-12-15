@@ -36,4 +36,11 @@ public class AlumnoService {
     public void deleteAlumnoById(int alumnoId) {
         alumnoRepository.deleteById(alumnoId);
     }
+    
+    public String saveAlumnoSP(Alumno alumno) {
+        
+        return alumnoRepository.procedureName(alumno.getNombre(), 
+                alumno.getApellidopaterno(), 
+                alumno.getApellidomaterno());
+    }
 }

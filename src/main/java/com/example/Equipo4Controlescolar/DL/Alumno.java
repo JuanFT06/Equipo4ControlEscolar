@@ -9,12 +9,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedStoredProcedureQuery;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.StoredProcedureParameter;
 
 /**
  *
  * @author digis
  */
 @Entity
+
+@NamedStoredProcedureQuery(
+        name = "AlumnoAdd",
+        procedureName = "AlumnoAdd",
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "NombreU", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "ApellidoPaternoU", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "ApellidoMaternoU", type = String.class)
+            
+        })
+
 public class Alumno {
 
     @Id
