@@ -36,4 +36,10 @@ public class AlumnoService {
     public void deleteAlumnoById(int alumnoId) {
         alumnoRepository.deleteById(alumnoId);
     }
+    
+    public Alumno getByNombre(String nombre){
+         return this.alumnoRepository.findByNombre(nombre);
+    }
+            
+           
 }

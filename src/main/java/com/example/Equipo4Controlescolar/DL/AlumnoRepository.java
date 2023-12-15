@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AlumnoRepository extends JpaRepository<Alumno, Integer> {
 
-    
+    Alumno findByNombre(String nombre);
 }
