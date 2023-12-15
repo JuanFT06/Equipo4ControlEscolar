@@ -4,50 +4,308 @@
       layout:decorate="~{Layout}">
 
     <head>
-        <style>
-            .custom-narrow-table {
-                width: 50%; 
-                margin: auto; 
-            }
-        </style>
+        <title>Dashboard | Materias</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
+    <body>
 
-    <body layout:fragment="body">
-        <div class="d-flex justify-content-center align-items-center mt-4">
-            <h1>Materias</h1>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse bg-success" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active text-light" aria-current="page" href="#">Alumnos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-light" href="#">Materias</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="d-flex justify-content-center mt-5"> 
+            <h1>Dashboard | Materias</h1>
         </div>
-        <div class="d-flex justify-content-center align-items-center mt-4">
-            <a class="btn btn-outline-success">Agregar</a>
+        <div class="d-flex justify-content-center m-2">
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#agregarModal">
+                Agregar Materia
+            </button> 
         </div>
 
-        <div class="container mt-2">
-            <div class="table-responsive custom-narrow-table">
-                <table class="table table-hover table-sm table-borderless">
-                    <thead class="table-light text-center">
-                        <tr>
-                            <th scope="col">Eliminar</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Editar</th>
-                        </tr>
-                    </thead>
+        <div class="modal fade" id="agregarModal" tabindex="-1" aria-labelledby="agregarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="agregarModalLabel">Formulario Agregar Materia</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <strong><h2>Nota</h2></strong>
+                        <p>Por favor, llena de manera correcta el siguiente formulario.</p>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" id="addon-wrapping"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book-fill" viewBox="0 0 16 16">
+                                        <path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                                        </svg></span>
+                                    <input type="text" class="form-control" placeholder="Nombre Materia" aria-label="NombreMateria" aria-describedby="addon-wrapping" id="nombre">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" id="addon-wrapping"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+                                        <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                                        <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z"/>
+                                        </svg></span>
+                                    <input type="text" class="form-control" placeholder="Precio" aria-label="Precio" aria-describedby="addon-wrapping" id="precio">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-success" onclick="guardarMateria()">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    <tbody>
-                        <tr class="text-center">
-                            <td>
-                                <a class="btn btn-outline-danger">
-                                    <i class="bi bi-trash-fill"></i>
-                                </a>
-                            </td>
-                            <td>Ballesteros</td>
-                            <td>
-                                <a class="btn btn-outline-warning">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <input type="hidden" id="idmateriaActivo" value="">
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Formulario Editar Materia</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <strong><h2>Nota</h2></strong>
+                        <p>Por favor, llena de manera correcta el siguiente formulario.</p>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" id="addon-wrapping"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book-fill" viewBox="0 0 16 16">
+                                        <path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                                        </svg></span>
+                                    <input type="text" class="form-control" placeholder="Nombre Materia" aria-label="NombreMateria" aria-describedby="addon-wrapping" id="nombreEditar">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" id="addon-wrapping"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+                                        <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                                        <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z"/>
+                                        </svg></span>
+                                    <input type="text" class="form-control" placeholder="Precio" aria-label="Precio" aria-describedby="addon-wrapping" id="precioEditar">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-success" id="guardarCambios">Actualizar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mx-auto">
+            <div style="overflow-x: auto;">
+                <br>
+
+                <div class="container mx-auto">
+                    <table class="table table-bordered border-primary" id="tableRandom">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th>Eliminar</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+
+
+                            function actualizarTabla(idmateria, nombre, precio) {
+                                var fila = $(`#tableRandom tr[data-idmateria="${idmateria}"]`);
+                                fila.find('.nombre').text(nombre);
+                                fila.find('.precio').text(precio);
+                            }
+
+                            $(document).ready(function () {
+                                Get();
+                            });
+
+                            function Get() {
+                                $.ajax({
+                                    url: 'http://localhost:8080/api/materia/listado',
+                                    type: 'GET',
+                                    success: function (result) {
+                                        for (var i = 0; i < result.length; i++) {
+                                            PintarMateria(result[i], 'tableRandom');
+                                        }
+                                    },
+                                    error: function () {
+                                        alert("Error al recuperar datos");
+                                    }
+                                });
+                            }
+
+                            function PintarMateria(materia, tableId) {
+                                var fila = '<tr data-idmateria="' + materia.idmateria + '">'
+                                        + '<td class="text-center">'
+                                        + '<a class="btn btn-outline-danger btn-eliminar" data-idmateria="' + materia.idmateria + '">'
+                                        + '<i class="fa-solid fa-trash"></i>'
+                                        + '<td class="nombre">' + materia.nombre + '</td>'
+                                        + '<td class="precio">' + materia.precio + '</td>'
+                                        + '<td class="text-center">'
+                                        + '<a class="btn btn-outline-warning btn-editar" data-idmateria="' + materia.idmateria + '">'
+                                        + '<i class="fa-solid fa-pen-to-square"></i>'
+                                        + '</a>'
+                                        + '</td>'
+                                        + '</tr>';
+
+                                $('#' + tableId + ' tbody').append(fila);
+                            }
+
+                            function actualizarTablaMaterias() {
+                                $.ajax({
+                                    url: 'http://localhost:8080/api/materia/listado',
+                                    type: 'GET',
+                                    success: function (result) {
+                                        $('#tableRandom tbody').empty();
+
+                                        for (var i = 0; i < result.length; i++) {
+                                            PintarMateria(result[i], 'tableRandom');
+                                        }
+                                    },
+                                    error: function () {
+                                        alert("Error al recuperar datos");
+                                    }
+                                });
+                            }
+
+                            function guardarMateria() {
+                                var nombre = $("#nombre").val();
+                                var precio = $("#precio").val();
+
+
+                                var materiaData = {
+                                    nombre: nombre,
+                                    precio: precio
+                                };
+
+                                $.ajax({
+                                    url: "http://localhost:8080/api/materia/agregar",
+                                    type: "POST",
+                                    data: JSON.stringify(materiaData),
+                                    contentType: "application/json",
+                                    success: function (response) {
+                                        console.log("Materia guardado con éxito.");
+                                        $("#agregarModal").modal('hide');
+
+                                        actualizarTablaMaterias();
+                                    },
+                                    error: function (error) {
+                                        alert("Error al guardar la materia: " + error);
+                                    }
+                                });
+                            }
+
+                            $(document).on('click', '.btn-eliminar', function () {
+                                var idmateria = $(this).data('idmateria');
+                                eliminarMateria(idmateria);
+                            });
+
+                            function eliminarMateria(idmateria) {
+                                console.log("Antes de la llamada AJAX");
+                                $.ajax({
+                                    url: 'http://localhost:8080/api/materia/borrar/' + idmateria,
+                                    type: 'DELETE',
+                                    success: function (response) {
+                                        console.log("Materia eliminado con éxito.");
+                                        $(`#tableRandom tr[data-idmateria="${idmateria}"]`).remove();
+                                    },
+                                    error: function (error) {
+                                        console.error("Error al eliminar la materia " + error);
+                                    }
+                                });
+                                console.log("Después de la llamada AJAX");
+                            }
+
+                            $(document).on('click', '.btn-editar', function () {
+                                var idmateria = $(this).data('idmateria');
+
+                                $.ajax({
+                                    url: 'http://localhost:8080/api/materia/GetById/' + idmateria,
+                                    type: 'GET',
+                                    success: function (materia) {
+                                        $('#idmateriaActivo').val(idmateria);
+                                        $('#nombreEditar').val(materia.nombre);
+                                        $('#precioEditar').val(materia.precio);
+
+                                        $('#editModal').modal('show');
+                                    },
+                                    error: function () {
+                                        alert("Error al obtener los datos del empleado para editar");
+                                    }
+                                });
+                            });
+
+                            $('#guardarCambios').click(function () {
+                                var idmateria = $('#idmateriaActivo').val();
+                                var nombre = $('#nombreEditar').val();
+                                var precio = $('#precioEditar').val();
+
+                                var materiaActualizada = {
+                                    nombre: nombre,
+                                    precio: precio
+                                };
+
+                                $.ajax({
+                                    url: 'http://localhost:8080/api/materia/update/' + idmateria,
+                                    type: 'PUT',
+                                    data: JSON.stringify(materiaActualizada),
+                                    contentType: "application/json",
+                                    success: function (response) {
+                                        $('#editModal').modal('hide');
+                                        actualizarTabla(idmateria, nombre, precio);
+                                    },
+                                    error: function (error) {
+                                        alert("Error al actualizar la materia: " + error);
+                                    }
+                                });
+                            });
+
+                            $("#precio").on("keypress", function (event) {
+                                var charCode = event.which ? event.which : event.keyCode;
+
+                                if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 8) {
+                                    event.preventDefault();
+                                }
+                            });
+                            
+                            $("#precioEditar").on("keypress", function (event) {
+                                var charCode = event.which ? event.which : event.keyCode;
+
+                                if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 8) {
+                                    event.preventDefault();
+                                }
+                            });
+    </script>
 </html>

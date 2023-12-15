@@ -81,5 +81,27 @@ public class MateriaRestController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al eliminar la materia", e);
         }
     }
-    
+
+    @PutMapping("/update/{idmateria}")
+    public ResponseEntity<Materia> updateMateria(@PathVariable int idmateria, @RequestBody Materia materiaActualizada) {
+        try {
+            Optional<Materia> optionalMateria = materiaService.obtenerMateriaPorId(idmateria);
+
+            if (optionalMateria.isPresent()) {
+                Materia materiaExistente = optionalMateria.get();
+
+                materiaExistente.setNombre(materiaActualizada.getNombre());
+                materiaExistente.setPrecio(materiaActualizada.getPrecio());
+
+                Materia materiaActualizadaEnRepo = materiaService.actualizarMateria(materiaExistente);
+
+                return ResponseEntity.ok(materiaActualizadaEnRepo);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al actualizar la materia", e);
+        }
+    }
+
 }

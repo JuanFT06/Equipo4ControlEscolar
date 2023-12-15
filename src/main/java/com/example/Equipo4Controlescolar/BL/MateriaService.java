@@ -50,16 +50,17 @@ public class MateriaService {
     }
 
     @Transactional
-    public void actualizarMateria(int id, String nuevoNombre, double nuevoPrecio) {
-        Optional<Materia> optional = repository.findById(id);
+    public Materia actualizarMateria(Materia materiaActualizada) {
+        Optional<Materia> optional = repository.findById(materiaActualizada.getIdmateria());
 
         if (optional.isPresent()) {
             Materia materia = optional.get();
-            materia.setNombre(nuevoNombre);
-            materia.setPrecio(nuevoPrecio);
-            repository.save(materia);
+            materia.setNombre(materiaActualizada.getNombre());
+            materia.setPrecio(materiaActualizada.getPrecio());
+            return repository.save(materia);
         } else {
-            throw new IllegalArgumentException("Materia no encontrada con ID: " + id);
+            throw new IllegalArgumentException("Materia no encontrada con ID: " + materiaActualizada.getIdmateria());
         }
     }
+
 }
