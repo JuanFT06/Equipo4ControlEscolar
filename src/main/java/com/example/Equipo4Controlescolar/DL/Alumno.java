@@ -29,6 +29,27 @@ import jakarta.persistence.StoredProcedureParameter;
             
         })
 
+@NamedStoredProcedureQuery(
+        name = "AlumnoUpdate",
+        procedureName = "AlumnoUpdate",
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "IdAlumnoU", type = Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "NombreU", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "ApellidoPaternoU", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "ApellidoMaternoU", type = String.class)
+            
+        })
+@NamedStoredProcedureQuery(
+        name = "AlumnoDelete",
+        procedureName = "AlumnoDelete",
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "IdAlumnoU", type = Integer.class),
+            
+        })
+
+
+
+
 public class Alumno {
 
     @Id

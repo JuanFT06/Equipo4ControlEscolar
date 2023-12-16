@@ -39,8 +39,22 @@ public class AlumnoService {
     
     public String saveAlumnoSP(Alumno alumno) {
         
-        return alumnoRepository.procedureName(alumno.getNombre(), 
+        return alumnoRepository.procedureAdd(alumno.getNombre(), 
                 alumno.getApellidopaterno(), 
                 alumno.getApellidomaterno());
+    }
+    
+    public String updateAlumnoSP(Alumno alumno) {
+        
+        return alumnoRepository.procedureUpdate(
+                alumno.getIdalumno(),
+                alumno.getNombre(), 
+                alumno.getApellidopaterno(), 
+                alumno.getApellidomaterno());
+    }
+    
+    public String deleteAlumnoSP(int alumnoId) {
+        
+        return alumnoRepository.procedureDelete(alumnoId);
     }
 }

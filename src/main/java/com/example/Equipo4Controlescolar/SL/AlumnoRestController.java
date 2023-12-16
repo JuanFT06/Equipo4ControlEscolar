@@ -60,4 +60,16 @@ public class AlumnoRestController {
 
         return alumnoService.saveAlumnoSP(alumno);
     }
+    
+    @PostMapping("/UpdateSP/{IdAlumno}")
+    public String updateAlumnoSP(@PathVariable int IdAlumno, @RequestBody Alumno alumno) {
+        alumno.setIdalumno(IdAlumno);
+        return alumnoService.updateAlumnoSP(alumno);
+    }
+    
+    @DeleteMapping("/DeleteSP/{IdAlumno}")
+    public String deleteAlumnoSP(@PathVariable int IdAlumno) {
+
+        return alumnoService.deleteAlumnoSP(IdAlumno);
+    }
 }
