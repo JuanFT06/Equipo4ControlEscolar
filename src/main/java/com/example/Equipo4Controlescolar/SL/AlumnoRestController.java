@@ -32,19 +32,19 @@ public class AlumnoRestController {
     }
 
     @GetMapping("/GetAll")
-    public List<Alumno> fetchDepartmentList() {
+    public List<Alumno> AlumnoList() {
 
         return alumnoService.findall();
     }
 
     @PostMapping("/Add")
-    public Alumno saveDepartment(@RequestBody Alumno alumno) {
+    public Alumno saveAlumno(@RequestBody Alumno alumno) {
 
         return alumnoService.saveAlumno(alumno);
     }
 
     @PostMapping("/Update/{IdAlumno}")
-    public Alumno updateDepartment(@PathVariable int IdAlumno, @RequestBody Alumno alumno) {
+    public Alumno updateAlumno(@PathVariable int IdAlumno, @RequestBody Alumno alumno) {
         alumno.setIdalumno(IdAlumno);
         return alumnoService.saveAlumno(alumno);
     }
@@ -54,4 +54,22 @@ public class AlumnoRestController {
         alumnoService.deleteAlumnoById(IdAlumno);
     }
 
+    
+    @PostMapping("/AddSP")
+    public String saveAlumnoSP(@RequestBody Alumno alumno) {
+
+        return alumnoService.saveAlumnoSP(alumno);
+    }
+    
+    @PostMapping("/UpdateSP/{IdAlumno}")
+    public String updateAlumnoSP(@PathVariable int IdAlumno, @RequestBody Alumno alumno) {
+        alumno.setIdalumno(IdAlumno);
+        return alumnoService.updateAlumnoSP(alumno);
+    }
+    
+    @DeleteMapping("/DeleteSP/{IdAlumno}")
+    public String deleteAlumnoSP(@PathVariable int IdAlumno) {
+
+        return alumnoService.deleteAlumnoSP(IdAlumno);
+    }
 }

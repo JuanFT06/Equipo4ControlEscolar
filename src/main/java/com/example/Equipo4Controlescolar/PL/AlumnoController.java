@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author digis
  */
 @Controller
-@RequestMapping("/alumno")
+    @RequestMapping("/alumno")
 public class AlumnoController {
 
     @GetMapping("/ListaAlumnos")
