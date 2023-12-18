@@ -20,5 +20,10 @@ public class MateriaController {
    public String Dashboard(){
        return "Materias";
    }
+   
+   @GetMapping("/dashboardSP")
+   public String DashboardSP(){
+       return "MateriasSP";
+   }
     
 }
