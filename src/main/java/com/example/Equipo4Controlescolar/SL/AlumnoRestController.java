@@ -54,19 +54,23 @@ public class AlumnoRestController {
         alumnoService.deleteAlumnoById(IdAlumno);
     }
 
-    
+    @GetMapping("/GetAllSP")
+    public List<Alumno> getAllAlumnosSP() {
+        return alumnoService.getAllAlumnosSP();
+    }
+
     @PostMapping("/AddSP")
     public String saveAlumnoSP(@RequestBody Alumno alumno) {
 
         return alumnoService.saveAlumnoSP(alumno);
     }
-    
+
     @PostMapping("/UpdateSP/{IdAlumno}")
     public String updateAlumnoSP(@PathVariable int IdAlumno, @RequestBody Alumno alumno) {
         alumno.setIdalumno(IdAlumno);
         return alumnoService.updateAlumnoSP(alumno);
     }
-    
+
     @DeleteMapping("/DeleteSP/{IdAlumno}")
     public String deleteAlumnoSP(@PathVariable int IdAlumno) {
 

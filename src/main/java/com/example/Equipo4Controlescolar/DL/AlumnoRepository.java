@@ -18,16 +18,19 @@ import org.springframework.stereotype.Repository;
 public interface AlumnoRepository extends JpaRepository<Alumno, Integer> {
 
     @Procedure(name = "AlumnoAdd")
-    String procedureAdd(@Param("NombreU") String Nombre, 
+    String procedureAdd(@Param("NombreU") String Nombre,
             @Param("ApellidoPaternoU") String ApellidoPaterno,
             @Param("ApellidoMaternoU") String ApellidoMaterno);
-    
+
     @Procedure(name = "AlumnoUpdate")
-    String procedureUpdate(@Param("IdAlumnoU") int idalumno, @Param("NombreU") String Nombre, 
+    String procedureUpdate(@Param("IdAlumnoU") int idalumno, @Param("NombreU") String Nombre,
             @Param("ApellidoPaternoU") String ApellidoPaterno,
             @Param("ApellidoMaternoU") String ApellidoMaterno);
-    
+
     @Procedure(name = "AlumnoDelete")
     String procedureDelete(@Param("IdAlumnoU") int alumnoId);
+
+//    @Procedure(name = "AlumnoGetAll")
+//    List<Alumno> procedureGetAll(@Param("resultado") String myParamIn);
 
 }
