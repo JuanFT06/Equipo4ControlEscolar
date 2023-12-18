@@ -38,24 +38,24 @@ public class LoginController {
     }
     
     
-//      @PostMapping("/")
-//    public String Login(@Valid @ModelAttribute("alumnoLogin") AlumnoLogin alumnoLogin, BindingResult bindingResult, HttpSession session, Model model) {
-//        
-//        //hay un error
-//        if (bindingResult.hasErrors()) {
-//            model.addAttribute("alumnoLogin", alumnoLogin);
-//            return "Login";
-//        }
-//        
-//        //Buscar el alumno
-//        Alumno alumno = this.service.getByNombre(alumnoLogin.getNombre());
-//        
-//          if (alumno.getApellidopaterno().equals(alumnoLogin.getApellidoPaterno())) {
-//              return "redirect:/alumno/ListaAlumnos";
-//          }else{
-//               model.addAttribute("error", true);
-//                return "Login";
-//          }
-//        
-//    }
+      @PostMapping("/")
+    public String Login(@Valid @ModelAttribute("alumnoLogin") AlumnoLogin alumnoLogin, BindingResult bindingResult, HttpSession session, Model model) {
+        
+        //hay un error
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("alumnoLogin", alumnoLogin);
+            return "Login";
+        }
+        
+        //Buscar el alumno
+        Alumno alumno = this.service.getByNombre(alumnoLogin.getNombre());
+        
+          if (alumno.getApellidopaterno().equals(alumnoLogin.getApellidoPaterno())) {
+              return "redirect:/alumno/ListaAlumnos";
+          }else{
+               model.addAttribute("error", true);
+                return "Login";
+          }
+        
+    }
 }

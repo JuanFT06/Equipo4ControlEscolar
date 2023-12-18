@@ -20,13 +20,25 @@ import jakarta.persistence.StoredProcedureParameter;
 @Entity
 
 @NamedStoredProcedureQuery(
+        name = "AlumnoGetAll",
+        procedureName = "AlumnoGetAll",
+        resultClasses = Alumno.class,
+        parameters = {
+            @StoredProcedureParameter(
+                    mode = ParameterMode.REF_CURSOR,
+                    type = void.class,
+                    name = "resultado"
+            )
+        }
+)
+@NamedStoredProcedureQuery(
         name = "AlumnoAdd",
         procedureName = "AlumnoAdd",
         parameters = {
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "NombreU", type = String.class),
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "ApellidoPaternoU", type = String.class),
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "ApellidoMaternoU", type = String.class)
-            
+
         })
 
 @NamedStoredProcedureQuery(
@@ -37,18 +49,13 @@ import jakarta.persistence.StoredProcedureParameter;
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "NombreU", type = String.class),
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "ApellidoPaternoU", type = String.class),
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "ApellidoMaternoU", type = String.class)
-            
+
         })
 @NamedStoredProcedureQuery(
         name = "AlumnoDelete",
         procedureName = "AlumnoDelete",
         parameters = {
-            @StoredProcedureParameter(mode = ParameterMode.IN, name = "IdAlumnoU", type = Integer.class),
-            
-        })
-
-
-
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "IdAlumnoU", type = Integer.class),})
 
 public class Alumno {
 

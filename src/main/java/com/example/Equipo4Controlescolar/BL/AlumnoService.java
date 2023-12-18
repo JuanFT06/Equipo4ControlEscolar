@@ -6,6 +6,8 @@ package com.example.Equipo4Controlescolar.BL;
 
 import com.example.Equipo4Controlescolar.DL.Alumno;
 import com.example.Equipo4Controlescolar.DL.AlumnoRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.StoredProcedureQuery;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,12 @@ import org.springframework.stereotype.Service;
 public class AlumnoService {
 
     private AlumnoRepository alumnoRepository;
+    private EntityManager entityManager;
 
     @Autowired
-    public AlumnoService(AlumnoRepository alumnoRepository) {
+    public AlumnoService(AlumnoRepository alumnoRepository, EntityManager entityManager) {
         this.alumnoRepository = alumnoRepository;
+        this.entityManager = entityManager;
     }
 
     public List<Alumno> findall() {
@@ -35,6 +39,12 @@ public class AlumnoService {
 
     public void deleteAlumnoById(int alumnoId) {
         alumnoRepository.deleteById(alumnoId);
+    }
+    
+     public List<Alumno> getAllAlumnosSP() {
+        StoredProcedureQuery storedProcedure = entityManager.createNamedStoredProcedureQuery("AlumnoGetAll");
+        storedProcedure.execute();
+        return storedProcedure.getResultList();
     }
 
     public String saveAlumnoSP(Alumno alumno) {
@@ -58,8 +68,8 @@ public class AlumnoService {
         return alumnoRepository.procedureDelete(alumnoId);
     }
 
-    public Alumno getByNombre(String nombre) {
+     public Alumno getByNombre(String nombre) {
         return this.alumnoRepository.findByNombre(nombre);
     }
-
+   
 }

@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AlumnoController {
 
     @GetMapping("/ListaAlumnos")
-    public String ListadoVuelos() {
+    public String ListadoAlumnos() {
         return "Alumnos";
+    }
+    @GetMapping("/ListaAlumnosSP")
+    public String ListadoAlumnosSP() {
+        return "AlumnosSP";
     }
 
 }
