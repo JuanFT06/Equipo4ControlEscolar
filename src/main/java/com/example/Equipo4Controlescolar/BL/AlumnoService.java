@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -32,14 +33,33 @@ public class AlumnoService {
     public Alumno saveAlumno(Alumno alumno) {
         return alumnoRepository.save(alumno);
     }
-   
+
     public void deleteAlumnoById(int alumnoId) {
         alumnoRepository.deleteById(alumnoId);
     }
-    
-    public Alumno getByNombre(String nombre){
-         return this.alumnoRepository.findByNombre(nombre);
+
+    public String saveAlumnoSP(Alumno alumno) {
+
+        return alumnoRepository.procedureAdd(alumno.getNombre(),
+                alumno.getApellidopaterno(),
+                alumno.getApellidomaterno());
     }
-            
-           
+
+    public String updateAlumnoSP(Alumno alumno) {
+
+        return alumnoRepository.procedureUpdate(
+                alumno.getIdalumno(),
+                alumno.getNombre(),
+                alumno.getApellidopaterno(),
+                alumno.getApellidomaterno());
+    }
+
+    public String deleteAlumnoSP(int alumnoId) {
+
+        return alumnoRepository.procedureDelete(alumnoId);
+    }
+
+    public Alumno getByNombre(String nombre) {
+        return this.alumnoRepository.findByNombre(nombre);
+    }
 }
