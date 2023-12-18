@@ -1,33 +1,18 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layaout"
+      layout:decorate="~{Layout}">
+
     <head>
-        <title>Dashboard | Materias SP</title>
+        <title>Dashboard | Materias</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
-    <body>
+    <body layout:fragment="body">
 
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse bg-success" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="#">Alumnos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-light" href="#">Materias</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
+    
         <div class="d-flex justify-content-center mt-5"> 
             <h1>Dashboard | Materias</h1>
         </div>
@@ -137,176 +122,177 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
         </div>
     </body>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script>
-
-
-                            function actualizarTabla(idmateria, nombre, precio) {
-                                var fila = $(`#tableRandom tr[data-idmateria="${idmateria}"]`);
-                                fila.find('.nombre').text(nombre);
-                                fila.find('.precio').text(precio);
-                            }
-
-                            $(document).ready(function () {
-                                Get();
-                            });
-
-                            function Get() {
-                                $.ajax({
-                                    url: 'http://localhost:8080/api/materia/listado',
-                                    type: 'GET',
-                                    success: function (result) {
-                                        for (var i = 0; i < result.length; i++) {
-                                            PintarMateria(result[i], 'tableRandom');
-                                        }
-                                    },
-                                    error: function () {
-                                        alert("Error al recuperar datos");
-                                    }
-                                });
-                            }
-
-                            function PintarMateria(materia, tableId) {
-                                var fila = '<tr data-idmateria="' + materia.idmateria + '">'
-                                        + '<td class="text-center">'
-                                        + '<a class="btn btn-outline-danger btn-eliminar" data-idmateria="' + materia.idmateria + '">'
-                                        + '<i class="fa-solid fa-trash"></i>'
-                                        + '<td class="nombre">' + materia.nombre + '</td>'
-                                        + '<td class="precio">' + materia.precio + '</td>'
-                                        + '<td class="text-center">'
-                                        + '<a class="btn btn-outline-warning btn-editar" data-idmateria="' + materia.idmateria + '">'
-                                        + '<i class="fa-solid fa-pen-to-square"></i>'
-                                        + '</a>'
-                                        + '</td>'
-                                        + '</tr>';
-
-                                $('#' + tableId + ' tbody').append(fila);
-                            }
-
-                            function actualizarTablaMaterias() {
-                                $.ajax({
-                                    url: 'http://localhost:8080/api/materia/listado',
-                                    type: 'GET',
-                                    success: function (result) {
-                                        $('#tableRandom tbody').empty();
-
-                                        for (var i = 0; i < result.length; i++) {
-                                            PintarMateria(result[i], 'tableRandom');
-                                        }
-                                    },
-                                    error: function () {
-                                        alert("Error al recuperar datos");
-                                    }
-                                });
-                            }
-
-                            function guardarMateria() {
-                                var nombre = $("#nombre").val();
-                                var precio = $("#precio").val();
-
-
-                                var materiaData = {
-                                    nombre: nombre,
-                                    precio: precio
-                                };
-
-                                $.ajax({
-                                    url: "http://localhost:8080/sp/materia/AddSP",
-                                    type: "POST",
-                                    data: JSON.stringify(materiaData),
-                                    contentType: "application/json",
-                                    success: function (response) {
-                                        console.log("Materia guardado con éxito.");
-                                        $("#agregarModal").modal('hide');
-
-                                        actualizarTablaMaterias();
-                                    },
-                                    error: function (error) {
-                                        alert("Error al guardar la materia: " + error);
-                                    }
-                                });
-                            }
-
-                            $(document).on('click', '.btn-eliminar', function () {
-                                var idmateria = $(this).data('idmateria');
-                                eliminarMateria(idmateria);
-                            });
-
-                            function eliminarMateria(idmateria) {
-                                console.log("Antes de la llamada AJAX");
-                                $.ajax({
-                                    url: 'http://localhost:8080/sp/materia/deleteSP/' + idmateria,
-                                    type: 'DELETE',
-                                    success: function (response) {
-                                        console.log("Materia eliminado con éxito.");
-                                        $(`#tableRandom tr[data-idmateria="${idmateria}"]`).remove();
-                                    },
-                                    error: function (error) {
-                                        console.error("Error al eliminar la materia " + error);
-                                    }
-                                });
-                                console.log("Después de la llamada AJAX");
-                            }
-
-                            $(document).on('click', '.btn-editar', function () {
-                                var idmateria = $(this).data('idmateria');
-
-                                $.ajax({
-                                    url: 'http://localhost:8080/api/materia/GetById/' + idmateria,
-                                    type: 'GET',
-                                    success: function (materia) {
-                                        $('#idmateriaActivo').val(idmateria);
-                                        $('#nombreEditar').val(materia.nombre);
-                                        $('#precioEditar').val(materia.precio);
-
-                                        $('#editModal').modal('show');
-                                    },
-                                    error: function () {
-                                        alert("Error al obtener los datos del empleado para editar");
-                                    }
-                                });
-                            });
-
-                            $('#guardarCambios').click(function () {
-                                var idmateria = $('#idmateriaActivo').val();
-                                var nombre = $('#nombreEditar').val();
-                                var precio = $('#precioEditar').val();
-
-                                var materiaActualizada = {
-                                    nombre: nombre,
-                                    precio: precio
-                                };
-
-                                $.ajax({
-                                    url: 'http://localhost:8080/sp/materia/updatesp/' + idmateria,
-                                    type: 'PUT',
-                                    data: JSON.stringify(materiaActualizada),
-                                    contentType: "application/json",
-                                    success: function (response) {
-                                        $('#editModal').modal('hide');
-                                        actualizarTabla(idmateria, nombre, precio);
-                                    },
-                                    error: function (error) {
-                                        alert("Error al actualizar la materia: " + error);
-                                    }
-                                });
-                            });
-
-                            $("#precio").on("keypress", function (event) {
-                                var charCode = event.which ? event.which : event.keyCode;
-
-                                if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 8) {
-                                    event.preventDefault();
-                                }
-                            });
-                            
-                            $("#precioEditar").on("keypress", function (event) {
-                                var charCode = event.which ? event.which : event.keyCode;
-
-                                if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 8) {
-                                    event.preventDefault();
-                                }
-                            });
-    </script>
 </html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+
+
+                        function actualizarTabla(idmateria, nombre, precio) {
+                            var fila = $(`#tableRandom tr[data-idmateria="${idmateria}"]`);
+                            fila.find('.nombre').text(nombre);
+                            fila.find('.precio').text(precio);
+                        }
+
+                        $(document).ready(function () {
+                            Get();
+                        });
+
+                        function Get() {
+                            $.ajax({
+                                url: 'http://localhost:8080/api/materia/listado',
+                                type: 'GET',
+                                success: function (result) {
+                                    for (var i = 0; i < result.length; i++) {
+                                        PintarMateria(result[i], 'tableRandom');
+                                    }
+                                },
+                                error: function () {
+                                    alert("Error al recuperar datos");
+                                }
+                            });
+                        }
+
+                        function PintarMateria(materia, tableId) {
+                            var fila = '<tr data-idmateria="' + materia.idmateria + '">'
+                                    + '<td class="text-center">'
+                                    + '<a class="btn btn-outline-danger btn-eliminar" data-idmateria="' + materia.idmateria + '">'
+                                    + '<i class="fa-solid fa-trash"></i>'
+                                    + '<td class="nombre">' + materia.nombre + '</td>'
+                                    + '<td class="precio">' + materia.precio + '</td>'
+                                    + '<td class="text-center">'
+                                    + '<a class="btn btn-outline-warning btn-editar" data-idmateria="' + materia.idmateria + '">'
+                                    + '<i class="fa-solid fa-pen-to-square"></i>'
+                                    + '</a>'
+                                    + '</td>'
+                                    + '</tr>';
+
+                            $('#' + tableId + ' tbody').append(fila);
+                        }
+
+                        function actualizarTablaMaterias() {
+                            $.ajax({
+                                url: 'http://localhost:8080/api/materia/listado',
+                                type: 'GET',
+                                success: function (result) {
+                                    $('#tableRandom tbody').empty();
+
+                                    for (var i = 0; i < result.length; i++) {
+                                        PintarMateria(result[i], 'tableRandom');
+                                    }
+                                },
+                                error: function () {
+                                    alert("Error al recuperar datos");
+                                }
+                            });
+                        }
+
+                        function guardarMateria() {
+                            var nombre = $("#nombre").val();
+                            var precio = $("#precio").val();
+
+
+                            var materiaData = {
+                                nombre: nombre,
+                                precio: precio
+                            };
+
+                            $.ajax({
+                                url: "http://localhost:8080/sp/materia/AddSP",
+                                type: "POST",
+                                data: JSON.stringify(materiaData),
+                                contentType: "application/json",
+                                success: function (response) {
+                                    console.log("Materia guardado con éxito.");
+                                    $("#agregarModal").modal('hide');
+
+                                    actualizarTablaMaterias();
+                                },
+                                error: function (error) {
+                                    alert("Error al guardar la materia: " + error);
+                                }
+                            });
+                        }
+
+                        $(document).on('click', '.btn-eliminar', function () {
+                            var idmateria = $(this).data('idmateria');
+                            eliminarMateria(idmateria);
+                        });
+
+                        function eliminarMateria(idmateria) {
+                            console.log("Antes de la llamada AJAX");
+                            $.ajax({
+                                url: 'http://localhost:8080/sp/materia/deleteSP/' + idmateria,
+                                type: 'DELETE',
+                                success: function (response) {
+                                    console.log("Materia eliminado con éxito.");
+                                    $(`#tableRandom tr[data-idmateria="${idmateria}"]`).remove();
+                                },
+                                error: function (error) {
+                                    console.error("Error al eliminar la materia " + error);
+                                }
+                            });
+                            console.log("Después de la llamada AJAX");
+                        }
+
+                        $(document).on('click', '.btn-editar', function () {
+                            var idmateria = $(this).data('idmateria');
+
+                            $.ajax({
+                                url: 'http://localhost:8080/api/materia/GetById/' + idmateria,
+                                type: 'GET',
+                                success: function (materia) {
+                                    $('#idmateriaActivo').val(idmateria);
+                                    $('#nombreEditar').val(materia.nombre);
+                                    $('#precioEditar').val(materia.precio);
+
+                                    $('#editModal').modal('show');
+                                },
+                                error: function () {
+                                    alert("Error al obtener los datos del empleado para editar");
+                                }
+                            });
+                        });
+
+                        $('#guardarCambios').click(function () {
+                            var idmateria = $('#idmateriaActivo').val();
+                            var nombre = $('#nombreEditar').val();
+                            var precio = $('#precioEditar').val();
+
+                            var materiaActualizada = {
+                                nombre: nombre,
+                                precio: precio
+                            };
+
+                            $.ajax({
+                                url: 'http://localhost:8080/sp/materia/updatesp/' + idmateria,
+                                type: 'PUT',
+                                data: JSON.stringify(materiaActualizada),
+                                contentType: "application/json",
+                                success: function (response) {
+                                    $('#editModal').modal('hide');
+                                    actualizarTabla(idmateria, nombre, precio);
+                                },
+                                error: function (error) {
+                                    alert("Error al actualizar la materia: " + error);
+                                }
+                            });
+                        });
+
+                        $("#precio").on("keypress", function (event) {
+                            var charCode = event.which ? event.which : event.keyCode;
+
+                            if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 8) {
+                                event.preventDefault();
+                            }
+                        });
+
+                        $("#precioEditar").on("keypress", function (event) {
+                            var charCode = event.which ? event.which : event.keyCode;
+
+                            if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 8) {
+                                event.preventDefault();
+                            }
+                        });
+</script>
+
