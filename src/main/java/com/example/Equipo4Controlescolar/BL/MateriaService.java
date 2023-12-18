@@ -63,4 +63,18 @@ public class MateriaService {
         }
     }
 
+    public String deleteMateriaSP(int idmateria) {
+        return repository.deleteemateria(idmateria);
+    }
+
+    public String saveMateriasP(Materia materia) {
+        return repository.ADDMATERIA(materia.getNombre(),
+                materia.getPrecio());
+    }
+    
+    public String updateMateriaSP(Materia materia){
+        return repository.UPDATEMATERIA(materia.getIdmateria(), materia.getNombre(), materia.getPrecio());
+    }
+    
+
 }
